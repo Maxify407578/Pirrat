@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeus Hacker Tools</title>
+    <style>
+        /* Grundlegendes Styling */
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0e0e0e;
+            color: #00ff00;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        /* Login-Screen */
+        #login-form {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 2px solid #333;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+        }
+
+        input[type="password"] {
+            width: 80%;
+            padding: 12px;
+            margin: 15px 0;
+            background-color: #222;
+            color: #00ff00;
+            border: 1px solid #444;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #00ff00;
+            color: #0e0e0e;
+            border: 1px solid #444;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #33cc33;
+        }
+
+        #error-message {
+            color: red;
+            display: none;
+        }
+
+        /* Hauptinhalt der Seite */
+        #main-content {
+            display: none;
+            width: 90%;
+            padding: 30px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #333;
+            text-align: left;
+            color: #e0e0e0;
+            max-width: 1200px;
+            margin-top: 20px;
+        }
+
+        h1 {
+            color: #00ff00;
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .tool {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            box-shadow: 0 0 5px #333;
+            width: 300px;
+            margin-bottom: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .tool h2 {
+            font-size: 22px;
+            color: #00ff00;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .tool input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #333;
+            color: #00ff00;
+            border: 1px solid #444;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .tool button {
+            width: 100%;
+            background-color: #00ff00;
+            color: #222;
+            border: 1px solid #444;
+            font-size: 18px;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .tool button:hover {
+            background-color: #33cc33;
+        }
+
+        footer {
+            font-size: 14px;
+            color: #888;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .console {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            background-color: #111;
+            color: #00ff00;
+            padding: 12px;
+            margin-top: 20px;
+            border-radius: 5px;
+            border: 1px solid #333;
+            height: 150px;
+            overflow-y: auto;
+        }
+
+        .console p {
+            margin: 0;
+            padding: 5px;
+        }
+
+        /* Animationen für Buttons */
+        button, .tool button {
+            transition: transform 0.2s ease;
+        }
+
+        button:hover, .tool button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Media Queries für mobile Geräte */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            .tools {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .tool {
+                width: 100%;
+                padding: 15px;
+            }
+
+            input[type="password"], .tool input, button {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Passwortschutz -->
+    <div id="login-form">
+        <h1>Pirrat Login</h1>
+        <input type="password" id="password" placeholder="Passwort eingeben" />
+        <button onclick="checkPassword()">Zugang erhalten</button>
+        <p id="error-message">Falsches Passwort. Versuch es nochmal!</p>
+    </div>
+
+    <!-- Hauptinhalt der Seite -->
+    <div id="main-content">
+        <h1>Pirrat</h1>
+
+        <div class="tools">
+            <!-- IP Scanner -->
+            <div class="tool" id="ip-scanner">
+                <h2>IP Scanner</h2>
+                <input type="text" id="ipInput" placeholder="IP-Adresse eingeben" />
+                <button onclick="scanIP()">Scannen</button>
+                <div id="ipOutput" class="console"></div>
+            </div>
+
+            <!-- Ping Tool -->
+            <div class="tool" id="ping-tool">
+                <h2>Ping Tool</h2>
+                <input type="text" id="pingInput" placeholder="IP oder Domain" />
+                <button onclick="pingIP()">Ping</button>
+                <div id="pingOutput" class="console"></div>
+            </div>
+
+            <!-- Port Scanner -->
+            <div class="tool" id="port-scanner">
+                <h2>Port Scanner</h2>
+                <input type="text" id="portIP" placeholder="IP-Adresse eingeben" />
+                <button onclick="scanPorts()">Scannen</button>
+                <div id="portOutput" class="console"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Passwort-Check
+        const correctPassword = "Pirrat212";
+        function checkPassword() {
+            const passwordInput = document.getElementById("password").value;
+            const errorMessage = document.getElementById("error-message");
+            const loginForm = document.getElementById("login-form");
+            const mainContent = document.getElementById("main-content");
+
+            if (passwordInput === correctPassword) {
+                mainContent.style.display = "block";
+                loginForm.style.display = "none";
+            } else {
+                errorMessage.style.display = "block";
+            }
+        }
+
+        // IP Scanner (simuliert)
+        async function scanIP() {
+            const ip = document.getElementById("ipInput").value;
+            const output = document.getElementById("ipOutput");
+
+            if (!ip) {
+                output.innerHTML = "Bitte eine IP-Adresse eingeben.";
+                return;
+            }
+
+            output.innerHTML = `Scanne IP-Adresse: ${ip}...`;
+
+            try {
+                const response = await fetch(`https://ipinfo.io/${ip}/json?token=dein_api_token`);
+                const data = await response.json();
+                output.innerHTML = `IP: ${data.ip} <br> Ort: ${data.city}, ${data.region}, ${data.country} <br> ISP: ${data.org}`;
+            } catch (error) {
+                output.innerHTML = "Fehler beim Scannen der IP.";
+            }
+        }
+
+        // Ping Tool (simuliert)
+        async function pingIP() {
+            const ip = document.getElementById("pingInput").value;
+            const output = document.getElementById("pingOutput");
+
+            if (!ip) {
+                output.innerHTML = "Bitte eine IP-Adresse oder Domain eingeben.";
+                return;
+            }
+
+            output.innerHTML = `Ping zu: ${ip}...`;
+
+            try {
+                const response = await fetch(`http://localhost:3000/ping?host=${ip}`);
+                const data = await response.json();
+                output.innerHTML = `${ip} ist erreichbar. Antwortzeit: ${data.time} ms`;
+            } catch (error) {
+                output.innerHTML = "Ping fehlgeschlagen.";
+            }
+        }
+
+        // Port Scanner (simuliert)
+        async function scanPorts() {
+            const ip = document.getElementById("portIP").value;
+            const output = document.getElementById("portOutput");
+
+            if (!ip) {
+                output.innerHTML = "Bitte eine IP-Adresse eingeben.";
+                return;
+            }
+
+            output.innerHTML = `Scanne Ports für: ${ip}...`;
+
+            try {
+                const response = await fetch(`http://localhost:3000/scan-port?host=${ip}&ports=22,80,443`);
+                const data = await response.json();
+                output.innerHTML = `Offene Ports: ${data.openPorts.join(", ")}`;
+            } catch (error) {
+                output.innerHTML = "Fehler beim Scannen der Ports.";
+            }
+        }
+    </script>
+
+</body>
+</html>
